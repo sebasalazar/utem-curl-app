@@ -1,11 +1,14 @@
-CXX=g++
-CXXFLAGS=-Wall -g3
-LDFLAGS=-lm
-# OBJECTOS=funciones.o utilitario.o
+CC=gcc
+CFLAGS=-Wall -g3
+LDFLAGS=-lm -lssl -lcrypto -lcurl -lz
+OBJECTOS=comunicacion.o
 DEL=rm -fr
 
-main: main.cpp $(OBJECTOS)
-	$(CXX) $(CXXFLAGS) -o app main.cpp $(OBJECTOS) $(LDFLAGS)
+comunicacion.o: comunicacion.h comunicacion.c
+	$(CC) $(CFLAGS) -c comunicacion.c
+
+main: main.c $(OBJECTOS)
+	$(CC) $(CFLAGS) -o app main.c $(OBJECTOS) $(LDFLAGS)
 
 clean:
 	$(DEL) *.o app bin/
