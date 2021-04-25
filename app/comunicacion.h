@@ -8,15 +8,36 @@ extern "C" {
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+    /* 
+     * libcurl (http://curl.haxx.se/libcurl/c) 
+     */
 #include <curl/curl.h>
 
-    typedef struct {
-        char *data;
-        int body_size;
-        int body_pos;
-    } postdata;
+    typedef struct curl_fetch_st {
+        char *cuerpo;
+        size_t tamano;
+    } mensaje;
 
-    int enviar_post(char* servidor, int puerto, char* url, char* post, int desarrollo);
+    /**
+     * Función usada por CURL para almacenar la información obtenida desde la URL.
+     * 
+     * @param contenido Datos del contenido
+     * @param largo Largo del contenido
+     * @param largoBuffer largo de buffer
+     * @param punteroUsuario buffer
+     * @return el tamaño de los datos obtenidos
+     */
+    size_t curl_callback(void *contenido, size_t largo, size_t largoBuffer, void *punteroUsuario);
+
+    /**
+     * Realiza una operación GET.
+     * 
+     * @param url URL a obtener
+     * @param datos puntero a los datos usados para el procesamiento
+     * @return Código de salida de CURL
+     */
+    CURLcode curl_get(char *url, mensaje *datos);
 
 #ifdef __cplusplus
 }

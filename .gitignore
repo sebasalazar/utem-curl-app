@@ -32,3 +32,8 @@
 *.app
 
 nbproject/
+/app/build/
+/app/bin/
+sonar-project.properties
+.scannerwork/
+
